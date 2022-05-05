@@ -1,19 +1,38 @@
 <template>
   <div class="col-12 d-flex">
-    <input type="text" class="form-control" placeholder="Pesquisar..." />
-    <div class="search d-flex justify-content-center align-items-center">
+    <input
+      type="text"
+      v-model="search"
+      class="form-control"
+      :placeholder="$store.state.search ? $store.state.search : 'Pesquisar...'"
+    />
+    <button
+      @click="catchUser()"
+      class="search d-flex justify-content-center align-items-center"
+    >
       <img
         src="@/assets/icons/search.svg"
         alt="search icon"
         class="img-fluid mt-1 icon-large"
       />
-    </div>
+    </button>
   </div>
 </template>
 
 <script>
 export default {
   name: "search-component",
+  data() {
+    return {
+      search: "",
+    };
+  },
+  methods: {
+    catchUser() {
+      this.$store.dispatch("Search", this.search);
+      this.$router.push("/result");
+    },
+  },
 };
 </script>
 
