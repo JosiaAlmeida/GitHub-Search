@@ -1,0 +1,23 @@
+@import url('https://pro.fontawesome.com/releases/v5.10.0/css/all.css');
+
+body,
+html {
+    font-family: Roboto Mono;
+}
+
+.icon {
+    height: 15px;
+}
+
+.icon-large {
+    height: 30px;
+}
+
+img {
+    object-fit: cover;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}

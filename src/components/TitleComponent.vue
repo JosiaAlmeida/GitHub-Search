@@ -9,6 +9,6 @@ export default {
 
 <style scoped>
 .non-bold {
-  font-weight: 100;
+  font-weight: normal;
 }
 </style>
