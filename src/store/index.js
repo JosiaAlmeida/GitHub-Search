@@ -67,9 +67,8 @@ const store = createStore({
         },
         stars({ commit }, payload) {
             new Promise((resolve, reject) => {
-                Axios.get(`https://api.github-star-counter.workers.dev/user/${payload}`).then(({ data }) => {
-                    const { stars } = data
-                    commit('setStars', stars)
+                Axios.get(`/${payload}/starred`).then(({ data }) => {
+                    commit('setStars', data.length)
                     resolve()
                 }).catch(err => reject(err))
             })
