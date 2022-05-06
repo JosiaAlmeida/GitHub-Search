@@ -10,11 +10,7 @@
       @click="catchUser()"
       class="search d-flex justify-content-center align-items-center"
     >
-      <img
-        src="@/assets/icons/search.svg"
-        alt="search icon"
-        class="img-fluid mt-1 icon-large"
-      />
+      <font-awesome-icon :icon="['fas', 'search']" color="#ffff" />
     </button>
   </div>
 </template>
@@ -33,6 +29,7 @@ export default {
       if (this.search) {
         this.$store.dispatch("User", this.search);
         this.$store.dispatch("repositoryUser", this.$store.getters.getSearch);
+        this.$store.dispatch("stars", this.$store.getters.getSearch);
         this.$router.push("/result");
       } else {
         this.$router.push("/");
@@ -48,6 +45,8 @@ export default {
   color: white;
   width: 70px;
   height: 35px;
+  margin-top: 0px;
+  border: none;
   border-top-right-radius: 0.25rem;
   border-bottom-right-radius: 0.25rem;
 }

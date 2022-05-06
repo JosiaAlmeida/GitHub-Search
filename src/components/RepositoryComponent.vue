@@ -1,12 +1,19 @@
 <template>
   <div class="mb-3 cursor-pointer">
-    <h3>{{ name }}</h3>
+    <div class="d-flex justify-content-between">
+      <h3>{{ name }}</h3>
+      <font-awesome-icon
+        v-if="favorited"
+        :icon="['fas', 'star']"
+        color="rgb(242, 180, 12)"
+      />
+    </div>
     <p class="text-muted">
       {{ description }}
     </p>
     <div class="d-flex align-items-center">
       <img src="@/assets/icons/star.png" alt="start" class="icon" />
-      <small> {{ stargazers_count }} </small>
+      <small class="ajustIcon"> {{ stargazers_count }} </small>
     </div>
   </div>
 </template>
@@ -21,11 +28,22 @@ export default {
     ["stargazers_count"]: Number,
     // ['saveRepository']: Function
   },
+  computed: {
+    favorited() {
+      return this.$store.getters.getFavorite.find(
+        (favorite) => this.id == favorite.id
+      );
+    },
+  },
 };
 </script>
 
 <style scoped>
 .cursor-pointer {
   cursor: pointer;
+}
+
+.ajustIcon {
+  margin-top: 2px;
 }
 </style>

@@ -11,52 +11,76 @@
       <img
         :src="$store.getters.getUser.avatar_url"
         alt="avatar user result"
-        class="img-fluid"
+        class="img-fluid user-img"
       />
       <h2>{{ $store.getters.getUser.name }}</h2>
       <p class="text-muted">{{ $store.getters.getUser.login }}</p>
-      <div class="mt-5">
-        <div>
-          <small
-            ><img src="@/assets/icons/bag.png" alt="start" class="icon" />
+      <ul class="mt-5">
+        <li class="d-flex algin-items-center mb-2">
+          <img
+            src="@/assets/icons/bag.png"
+            alt="start"
+            class="icon ajustIcon"
+          />
+          <small>
             {{ $store.getters.getUser.company }}
           </small>
-        </div>
-        <div>
-          <small
-            ><img src="@/assets/icons/approval.png" alt="start" class="icon" />
-            Fortaleza CR
-          </small>
-        </div>
-        <div>
+        </li>
+        <li class="d-flex algin-items-center mb-2">
+          <img
+            src="@/assets/icons/approval.png"
+            alt="start"
+            class="icon ajustIcon"
+          />
           <small>
-            <img src="@/assets/icons/star.png" alt="start" class="icon" /> 0
+            {{ $store.getters.getUser.location }}
           </small>
-        </div>
-        <div>
+        </li>
+        <li class="d-flex algin-items-center mb-2">
+          <img
+            src="@/assets/icons/star.png"
+            alt="start"
+            class="icon ajustIcon"
+          />
           <small>
-            <img src="@/assets/icons/box.png" alt="start" class="icon" />
+            {{ $store.getters.getStars }}
+          </small>
+        </li>
+        <li class="d-flex algin-items-center mb-2">
+          <img
+            src="@/assets/icons/box.png"
+            alt="start"
+            class="icon ajustIcon"
+          />
+          <small>
             {{ $store.getters.getUser.public_repos }}
           </small>
-        </div>
-        <div>
+        </li>
+        <li class="d-flex algin-items-center mb-3">
+          <img
+            src="@/assets/icons/peoples.png"
+            alt="start"
+            class="icon ajustIcon"
+          />
           <small>
-            <img src="@/assets/icons/peoples.png" alt="start" class="icon" />
             {{ $store.getters.getUser.followers }}
           </small>
-        </div>
-      </div>
+        </li>
+      </ul>
     </div>
-    <div class="col-sm-12 col-md-5 mt-5">
+    <div class="col-sm-12 col-md-6 mt-5">
       <div v-for="(item, i) in $store.getters.getRepositoryUser" :key="i">
         <repository-component @click="saveRepository(item)" v-bind="item" />
       </div>
     </div>
-    <div class="col-1"></div>
     <div class="col-md-2 mt-5">
       <router-link to="/favourit">
         <div class="d-flex justify-content-end align-items-center">
-          <img src="@/assets/icons/star.png" alt="start" class="icon-large" />
+          <font-awesome-icon
+            :icon="['fas', 'star']"
+            color="rgb(242, 180, 12)"
+            size="2x"
+          />
           <p class="mt-3">Repositório Favoritado</p>
         </div>
       </router-link>
@@ -97,3 +121,17 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.user-img {
+  height: 300px;
+}
+ul {
+  list-style: none;
+  padding-left: 0px;
+}
+.ajustIcon {
+  margin-top: 2px;
+  margin-right: 10px;
+}
+</style>

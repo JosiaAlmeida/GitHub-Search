@@ -10,7 +10,7 @@
       "
     >
       <title-component />
-      <div class="w-50">
+      <div class="col-md-6 col-sm-12">
         <search-component />
       </div>
     </div>

@@ -7,7 +7,8 @@ const store = createStore({
             search: '',
             favorite: [],
             user: {},
-            repositoryUser: []
+            repositoryUser: [],
+            stars: 0
         }
     },
     mutations: {
@@ -21,7 +22,6 @@ const store = createStore({
         setRemoveFavorite(state, payload) {
             state.favorite.filter((favorite) => {
                 if (state.favorite.indexOf(favorite) === payload) {
-                    console.log(favorite)
                     state.favorite.splice(payload, 1)
                 }
                 return favorite
@@ -33,6 +33,9 @@ const store = createStore({
         },
         setRepositoryUser(state, payload) {
             state.repositoryUser = payload
+        },
+        setStars(state, payload) {
+            state.stars = payload
         }
     },
     actions: {
@@ -61,13 +64,23 @@ const store = createStore({
                     resolve()
                 }).catch(err => reject(err))
             })
+        },
+        stars({ commit }, payload) {
+            new Promise((resolve, reject) => {
+                Axios.get(`https://api.github-star-counter.workers.dev/user/${payload}`).then(({ data }) => {
+                    const { stars } = data
+                    commit('setStars', stars)
+                    resolve()
+                }).catch(err => reject(err))
+            })
         }
     },
     getters: {
         getSearch: (state) => state.search,
         getFavorite: (state) => state.favorite,
         getUser: (state) => state.user,
-        getRepositoryUser: (state) => state.repositoryUser
+        getRepositoryUser: (state) => state.repositoryUser,
+        getStars: (state) => state.stars
     }
 })
 
