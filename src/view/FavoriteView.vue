@@ -7,8 +7,8 @@
       </div>
     </div>
     <div class="col-12 mt-5">
-      <div v-for="i in 4" :key="i">
-        <repository-component />
+      <div v-for="(favorite, i) in $store.getters.getFavorite" :key="i">
+        <repository-component @click="removeFavorite(i)" v-bind="favorite" />
       </div>
     </div>
   </layout-component>
@@ -23,6 +23,16 @@ export default {
     LayoutComponent,
     SearchComponent,
     RepositoryComponent,
+  },
+  created() {
+    if (!this.$store.state.search) {
+      this.$router.push("/");
+    }
+  },
+  methods: {
+    removeFavorite(favorite) {
+      this.$store.dispatch("removeFavorite", favorite);
+    },
   },
 };
 </script>

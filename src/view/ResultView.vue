@@ -8,14 +8,18 @@
       <search-component />
     </div>
     <div class="col-sm-12 col-md-4 mt-5">
-      <img src="" alt="avatar user result" />
-      <h2>Josia Almeida</h2>
-      <p class="text-muted">JosiaAlmeida</p>
+      <img
+        :src="$store.getters.getUser.avatar_url"
+        alt="avatar user result"
+        class="img-fluid"
+      />
+      <h2>{{ $store.getters.getUser.name }}</h2>
+      <p class="text-muted">{{ $store.getters.getUser.login }}</p>
       <div class="mt-5">
         <div>
           <small
-            ><img src="@/assets/icons/bag.png" alt="start" class="icon" /> Lux
-            One
+            ><img src="@/assets/icons/bag.png" alt="start" class="icon" />
+            {{ $store.getters.getUser.company }}
           </small>
         </div>
         <div>
@@ -31,19 +35,21 @@
         </div>
         <div>
           <small>
-            <img src="@/assets/icons/box.png" alt="start" class="icon" /> 0
+            <img src="@/assets/icons/box.png" alt="start" class="icon" />
+            {{ $store.getters.getUser.public_repos }}
           </small>
         </div>
         <div>
           <small>
-            <img src="@/assets/icons/peoples.png" alt="start" class="icon" /> 0
+            <img src="@/assets/icons/peoples.png" alt="start" class="icon" />
+            {{ $store.getters.getUser.followers }}
           </small>
         </div>
       </div>
     </div>
     <div class="col-sm-12 col-md-5 mt-5">
-      <div v-for="i in 4" :key="i">
-        <repository-component />
+      <div v-for="(item, i) in $store.getters.getRepositoryUser" :key="i">
+        <repository-component @click="saveRepository(item)" v-bind="item" />
       </div>
     </div>
     <div class="col-1"></div>
@@ -78,6 +84,16 @@ export default {
     SearchComponent,
     TitleComponent,
     RepositoryComponent,
+  },
+  created() {
+    if (!this.$store.state.search) {
+      this.$router.push("/");
+    }
+  },
+  methods: {
+    saveRepository(item) {
+      this.$store.dispatch("Favorite", item);
+    },
   },
 };
 </script>

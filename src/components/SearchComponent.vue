@@ -30,7 +30,13 @@ export default {
   methods: {
     catchUser() {
       this.$store.dispatch("Search", this.search);
-      this.$router.push("/result");
+      if (this.search) {
+        this.$store.dispatch("User", this.search);
+        this.$store.dispatch("repositoryUser", this.$store.getters.getSearch);
+        this.$router.push("/result");
+      } else {
+        this.$router.push("/");
+      }
     },
   },
 };

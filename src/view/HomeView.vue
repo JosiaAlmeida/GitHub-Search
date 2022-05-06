@@ -32,7 +32,7 @@ export default {
 
 <style scoped>
 .custom-heigth {
-  height: 100vh;
+  height: 90vh;
 }
 .non-bold {
   font-weight: 100;

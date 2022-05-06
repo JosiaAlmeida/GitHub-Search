@@ -10,7 +10,7 @@ const routes = [
     },
     {
         path: '/favourit',
-        component: () => import('../view/FavouritView.vue')
+        component: () => import('../view/FavoriteView.vue')
     }
 ]
 
@@ -18,5 +18,4 @@ const router = createRouter({
     history: createWebHashHistory(),
     routes
 })
-
 export default router
