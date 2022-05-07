@@ -8,7 +8,8 @@ const store = createStore({
             favorite: [],
             user: {},
             repositoryUser: [],
-            stars: 0
+            stars: 0,
+            errorFind: false
         }
     },
     mutations: {
@@ -36,6 +37,9 @@ const store = createStore({
         },
         setStars(state, payload) {
             state.stars = payload
+        },
+        setErrorFind(state, payload) {
+            state.errorFind = payload
         }
     },
     actions: {
@@ -49,20 +53,28 @@ const store = createStore({
             commit('setRemoveFavorite', payload)
         },
         User({ commit }, payload) {
+            commit("setErrorFind", false)
             new Promise((resolve, reject) => {
-                Axios.get(`/${payload}`).then(({ data }) => {
+                Axios.get(`${payload}`).then(({ data }) => {
                     commit("setUser", data)
                     resolve()
-                }).catch(err => reject(err))
+                }).catch(err => {
+                    commit("setErrorFind", true)
+                    commit("setUser", {})
+                    reject(err)
+                })
             })
         },
         repositoryUser({ commit }, payload) {
             new Promise((resolve, reject) => {
-                Axios.get(`/${payload}/repos`).then(({ data }) => {
+                Axios.get(`${payload}/repos`).then(({ data }) => {
                     const orderDesc = data.sort((a, b) => b.stargazers_count - a.stargazers_count);
                     commit('setRepositoryUser', orderDesc)
                     resolve()
-                }).catch(err => reject(err))
+                }).catch(err => {
+                    commit('setRepositoryUser', {})
+                    reject(err)
+                })
             })
         },
         stars({ commit }, payload) {
@@ -79,7 +91,8 @@ const store = createStore({
         getFavorite: (state) => state.favorite,
         getUser: (state) => state.user,
         getRepositoryUser: (state) => state.repositoryUser,
-        getStars: (state) => state.stars
+        getStars: (state) => state.stars,
+        getErrorFind: (state) => state.errorFind
     }
 })
 

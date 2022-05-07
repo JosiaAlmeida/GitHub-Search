@@ -7,71 +7,78 @@
     <div class="col-sm-12 col-md-5">
       <search-component />
     </div>
-    <div class="col-sm-12 col-md-4 mt-5">
-      <img
-        :src="$store.getters.getUser.avatar_url"
-        alt="avatar user result"
-        class="img-fluid user-img"
-      />
-      <h2>{{ $store.getters.getUser.name }}</h2>
-      <p class="text-muted">{{ $store.getters.getUser.login }}</p>
-      <ul class="mt-5">
-        <li class="d-flex algin-items-center mb-2">
+    <div v-if="!$store.getters.getErrorFind" class="col-md-10 col-sm-12">
+      <div class="row">
+        <div class="col-sm-12 col-md-4 mt-5">
           <img
-            src="@/assets/icons/bag.png"
-            alt="start"
-            class="icon ajustIcon"
+            :src="$store.getters.getUser.avatar_url"
+            alt="avatar user result"
+            class="img-fluid user-img"
           />
-          <small>
-            {{ $store.getters.getUser.company }}
-          </small>
-        </li>
-        <li class="d-flex algin-items-center mb-2">
-          <img
-            src="@/assets/icons/approval.png"
-            alt="start"
-            class="icon ajustIcon"
-          />
-          <small>
-            {{ $store.getters.getUser.location }}
-          </small>
-        </li>
-        <li class="d-flex algin-items-center mb-2">
-          <img
-            src="@/assets/icons/star.png"
-            alt="start"
-            class="icon ajustIcon"
-          />
-          <small>
-            {{ $store.getters.getStars }}
-          </small>
-        </li>
-        <li class="d-flex algin-items-center mb-2">
-          <img
-            src="@/assets/icons/box.png"
-            alt="start"
-            class="icon ajustIcon"
-          />
-          <small>
-            {{ $store.getters.getUser.public_repos }}
-          </small>
-        </li>
-        <li class="d-flex algin-items-center mb-3">
-          <img
-            src="@/assets/icons/peoples.png"
-            alt="start"
-            class="icon ajustIcon"
-          />
-          <small>
-            {{ $store.getters.getUser.followers }}
-          </small>
-        </li>
-      </ul>
-    </div>
-    <div class="col-sm-12 col-md-6 mt-5">
-      <div v-for="(item, i) in $store.getters.getRepositoryUser" :key="i">
-        <repository-component @click="saveRepository(item)" v-bind="item" />
+          <h2>{{ $store.getters.getUser.name }}</h2>
+          <p class="text-muted">{{ $store.getters.getUser.login }}</p>
+          <ul class="mt-5">
+            <li class="d-flex algin-items-center mb-2">
+              <img
+                src="@/assets/icons/bag.png"
+                alt="start"
+                class="icon ajustIcon"
+              />
+              <small>
+                {{ $store.getters.getUser.company }}
+              </small>
+            </li>
+            <li class="d-flex algin-items-center mb-2">
+              <img
+                src="@/assets/icons/approval.png"
+                alt="start"
+                class="icon ajustIcon"
+              />
+              <small>
+                {{ $store.getters.getUser.location }}
+              </small>
+            </li>
+            <li class="d-flex algin-items-center mb-2">
+              <img
+                src="@/assets/icons/star.png"
+                alt="start"
+                class="icon ajustIcon"
+              />
+              <small>
+                {{ $store.getters.getStars }}
+              </small>
+            </li>
+            <li class="d-flex algin-items-center mb-2">
+              <img
+                src="@/assets/icons/box.png"
+                alt="start"
+                class="icon ajustIcon"
+              />
+              <small>
+                {{ $store.getters.getUser.public_repos }}
+              </small>
+            </li>
+            <li class="d-flex algin-items-center mb-3">
+              <img
+                src="@/assets/icons/peoples.png"
+                alt="start"
+                class="icon ajustIcon"
+              />
+              <small>
+                {{ $store.getters.getUser.followers }}
+              </small>
+            </li>
+          </ul>
+        </div>
+        <div class="col-sm-12 col-md-6 mt-5">
+          <div v-for="(item, i) in $store.getters.getRepositoryUser" :key="i">
+            <repository-component @click="saveRepository(item)" v-bind="item" />
+          </div>
+        </div>
       </div>
+    </div>
+    <div v-else class="col-md-10 col-sm-12 text-center">
+      <h4>Usuário não encontrado</h4>
     </div>
     <div class="col-md-2 mt-5">
       <router-link to="/favourit">

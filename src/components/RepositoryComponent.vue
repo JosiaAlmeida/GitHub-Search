@@ -26,7 +26,6 @@ export default {
     ["name"]: String,
     ["description"]: String,
     ["stargazers_count"]: Number,
-    // ['saveRepository']: Function
   },
   computed: {
     favorited() {
